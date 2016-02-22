@@ -116,7 +116,7 @@ class GridFieldImporter_Request extends RequestHandler {
 		$form->Fields()->unshift(
 			new LiteralField('mapperfield', $mapper->forTemplate())
 		);
-		$form->setFormAction($this->Link('import').'/'.$file->ID);
+		$form->setFormAction($this->Link('import', $file->ID));
 		$content = ArrayData::create(array(
 			'File' => $file,
 			'MapperForm'=> $form
@@ -168,6 +168,7 @@ class GridFieldImporter_Request extends RequestHandler {
 	/**
 	 * Import the current file
 	 * @param  SS_HTTPRequest $request
+     * @return void
 	 */
 	public function import(SS_HTTPRequest $request) {
 		$hasheader = (bool)$request->postVar('HasHeader');
@@ -237,11 +238,12 @@ class GridFieldImporter_Request extends RequestHandler {
 
 	/**
 	 * @param string $action
+     * @param string $id
 	 * @return string
 	 */
-	public function Link($action = null) {
+	public function Link($action = null, $id = null) {
 		return Controller::join_links(
-			$this->gridField->Link(), $this->urlSegment, $action
+			$this->gridField->Link(), $this->urlSegment, $action, $id
 		);
 	}
 

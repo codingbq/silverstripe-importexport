@@ -1,7 +1,7 @@
 <?php
 
 class ImportAdminExtension extends Extension{
-	
+
 	/**
 	 * Prevent existing import form from showing up
 	 * @todo: there should be a better way to disable from an extension, rather than
@@ -33,13 +33,13 @@ class ImportAdminExtension extends Extension{
 			//allow config to avoid adding when there are existing importers
 			$importerClasses = $this->owner->stat('model_importers');
 			if(
-				$doadd === "scaffolded" && 
+				$doadd === "scaffolded" &&
 				!is_null($importerClasses) &&
 				isset($importerClasses[$modelclass])
 			){
 				return;
 			}
-			
+
 			//add the component
 			$config->addComponent(new GridFieldImporter('before'));
 		}
